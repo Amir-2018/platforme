@@ -1,0 +1,89 @@
+
+.App {
+    background-color: white;
+  }
+  
+  .Auth-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../outils/assets/img/map-image.png");
+    background-size: cover; /* cover the entire element */
+    background-position: center; /* center the image */
+    background-repeat: no-repeat;
+  }
+  
+  .Auth-form {
+    width: 420px;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+  .Auth-form-content {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  
+  .Auth-form-title {
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 24px;
+    color: rgb(34, 34, 34);
+    font-weight: 800;
+  }
+  
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(34, 34, 34);
+  }
+  .Auth-form-content{
+    display: flex;
+    
+  
+  }
+  .Auth-form{
+    width: 100%;
+
+  }
+  .table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+table{
+    border-collapse: separate; /* set border-collapse to separate */
+  border-spacing: 8px;
+
+}
+.btn_sign{
+    padding: 5px;
+}
+
+th{
+   text-align: center;
+}
+.my_td{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.Auth-form-content{
+    display: flex;
+    flex-direction: column;
+    
+}
+.title_T{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
