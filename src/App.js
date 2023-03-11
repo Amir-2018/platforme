@@ -19,18 +19,22 @@ import HomeImage from "./components/HomeImage";
 import Services from "./components/Services";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Profile from "./components/Profile";
 function App() {
   return (
     <div className="App">
-      {/* <NavH/>  */}
+      {/*   */}
         <Router>
         <Routes>
-        <Route exact path='/home' element={<div>< HomeImage /> <Services/><About/><Contact/></div>}></Route>
-            {/* <Route exact path='/login' element={< Login />}></Route>
-            <Route exact path='/register' element={< Signup />}></Route>
-            <Route exact path='/section' element={< Section />}></Route>
-            <Route exact path='/product' element={< Product />}></Route>
-            <Route exact path='/contact' element={< Contact />}></Route> */}
+        <Route exact path='/' element={<div><NavH/>< HomeImage /> <Services/><About/><Contact/></div>}></Route>
+
+        <Route exact path='/home' element={<div><NavH/>< HomeImage /> <Services/><About/><Contact/></div>}></Route>
+             <Route exact path='/login' element={<div><NavH/> < Login /></div>}></Route>
+            <Route exact path='/register' element={<div><NavH/> < Signup /></div>}></Route>
+            <Route exact path='/section' element={<div><NavH/> < Section /></div>}></Route>
+            <Route exact path='/product' element={<div><NavH/>< Product /></div>}></Route>
+            <Route exact path='/contact' element={< Contact />}></Route>
+            <Route exact path='/profile' element={< Profile />}></Route>   
                    
             <Route exact path='/specialiste' element={< DevoirScours />}></Route>   
             
