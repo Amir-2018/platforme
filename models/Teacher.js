@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema({
     data : Buffer,
     contentType : String
   },
+  exams : [],
+  series : [],
+  courses : []
 });
 
 

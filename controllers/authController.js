@@ -62,25 +62,27 @@ const upload = multer({
 }).single('image')
 
 
-module.exports.signup_post = async (req, res,next) => {
+module.exports.signup_post =  (req, res) => {
+  
   upload(req,res,(err)=>{
     if(err){
         if(err.code == 'LIMIT_FILE_SIZE'){
-          res.status(500).json({
+          res.json({
               message : "Image size is over than 5MB"
           })         
         }  
     }else{
+      console.log(req.body)
       if(req.file == undefined){
-        res.status(500).json({
-          message : "Image is required "
-        })
+        res.json({
+          message : "Image Required"
+      }) 
       }else{
-        const str = req.file.originalname;
+      const str = req.file.originalname;
       const slug = str.split('.').pop();
       // check if the file is of type image
- 
-      if(slug =='jpg' || slug =='png' || slug =='jpeg' || slug =='gif'|| slug =='bmp' ){
+      
+        if(slug =='jpg' || slug =='png' || slug =='jpeg' || slug =='gif'|| slug =='bmp' ){
           const teacher = new Teacher({
             name : req.body.name ,
             lastname : req.body.lastname,
@@ -100,16 +102,18 @@ module.exports.signup_post = async (req, res,next) => {
               res.status(201).json({ message: 'Account created with success' });
             }).catch(err =>{
               if(err.code == 11000){
-                res.status(500).json({
+                res.status(400).json({
                   message : "Email is already exist"
               })  
               }
             })
       }else{
-        res.status(500).json({
-          message : "Only image are recommended "
+        res.json({
+          message : "Only images are recommended "
         }) 
       }
+   
+      
       }
       
     }
@@ -123,11 +127,11 @@ module.exports.login_post = async (req, res) => {
     const user = await Teacher.login(email, password);
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+    res.status(200).json({ user: user._id,message:'Login with success' });
   } 
   catch (err) {
     const errors = handleErrors(err);
-    res.status(400).json({ errors });
+    res.json({ message :'Failed to login' });
   }
 
 }
