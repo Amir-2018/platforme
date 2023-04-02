@@ -15,53 +15,46 @@ const Storage = multer.diskStorage({
   
   const upload = multer({
     storage : Storage
-  }).single('image')
+  }).single('file')
   
-module.exports.uploadExam =  (req, res) => {  
-    const token = req.cookies.jwt;
+  module.exports.uploadExam = (req, res, next) => {
+    const token = req.cookies.jwt; 
     if (token) {
       jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
         if (err) {
           res.locals.teacher = null;
-          next();
+          next(err);
         } else {
-          let teacher = await Teacher.findById(decodedToken.id);
-          upload(req,res,(err)=>{
-            if(err){
-                console.log(err) 
-            }else{
+          try {
+            let teacher = await Teacher.findById(decodedToken.id);
+            upload(req, res, async (err) => {
+              if (err) {
+                console.log(err);
+                return res.status(400).json({ message: 'Error uploading file' });
+              } else {
                 const exam = new Exam({
-                    title : req.body.title ,
-                    file : {
-                      data : req.file.filename,
-                      contentType : 'image/png'
-                    },
-                    id_teacher : teacher._id
-                  })
-                exam.save().then(result =>{
-                    if(result){
-                        res.status(200).json({
-                            message : 'Exam uploaded with success'
-                        })
-                    }else{
-                        res.status(500).json({
-                            message : 'Exam does not saved'
-                        })
-                    }
-                }).catch(err =>{
-                    throw err
-                })
-            }
-        })
+                  title: req.body.title,
+                  file: {
+                    data: req.file.filename,
+                    contentType: 'application/pdf'
+                  },
+                  id_teacher: teacher._id
+                });
+                const result = await exam.save()
+                res.status(200).json({ message: 'Exam uploaded successfully' });
+              }
+            });
+          } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Server error' });
+          }
         }
-      })
-    }else{
-        res.status(500).json({
-            message : 'You are not logged in'
-        })
+      });
+    } else {
+      res.status(401).json({ message: 'You are not logged in' });
     }
-
-}
+  };
+  
 
 
 module.exports.uploadSerie=  (req, res) => {  
@@ -81,7 +74,7 @@ module.exports.uploadSerie=  (req, res) => {
                     title : req.body.title ,
                     file : {
                       data : req.file.filename,
-                      contentType : 'image/png'
+                      contentType: 'application/pdf'
                     },
                     id_teacher : teacher._id
                   })
@@ -125,7 +118,7 @@ module.exports.uploadVideo=  (req, res) => {
                     title : req.body.title ,
                     file : {
                       data : req.file.filename,
-                      contentType : 'image/png'
+                      contentType: 'application/pdf'
                     },
                     id_teacher : teacher._id
                   })

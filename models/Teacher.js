@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema({
   },
   exams : [],
   series : [],
-  courses : []
+  courses : [],
+  videos:[]
 });
 
 
